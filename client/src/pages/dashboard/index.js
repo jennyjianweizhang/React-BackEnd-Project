@@ -1,11 +1,6 @@
 import Grid from '@mui/material/Grid'
 import {Typography } from '@mui/material';
-// ** Icons Imports
-import Poll from 'mdi-material-ui/Poll'
-import CurrencyUsd from 'mdi-material-ui/CurrencyUsd'
-import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
 import BriefcaseVariantOutline from 'mdi-material-ui/BriefcaseVariantOutline'
-
 
 // ** Custom Components Imports
 import CardStatisticsVerticalComponent from 'src/@core/components/card-statistics/card-stats-vertical'
@@ -25,7 +20,26 @@ import TransactionCard from 'src/views/dashboard/Transations';
 import ActivityTimelineCard from 'src/views/dashboard/ActivityTimeline';
 import BrowserData from 'src/views/dashboard/BrowserSystem';
 
+import { sendDataToBackend } from 'src/@core/services/dataService';
+import dataReports from 'src/@core/data/datasets';
+
 const Dashboard = () => {
+  async function addData() {
+    // const addDataToBackend = {
+    //   "id": "profit",
+    //   "name": "Profit data",
+    //   "data": [10, 190, 45, 140, 125, 320],
+    // }
+    try {
+        const res = await sendDataToBackend(dataReports)
+        console.log(res);
+       
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
   return (
     <ApexChartWrapper>
       <Grid container spacing={6}>
@@ -52,7 +66,7 @@ const Dashboard = () => {
                 // trendNumber='+28.14%'
                 subtitle='&#8593;28.14%'
                 icon={
-                 <img src="/images/cards/wallet.png" alt="Sales" style={{ width: '42px', height: '42px' }} />
+                 <img src="http://127.0.0.1:8000/cards/wallet.png" alt="Sales" style={{ width: '42px', height: '42px' }} />
                   
                 }
                 // icon={<CurrencyUsd />}
@@ -82,7 +96,7 @@ const Dashboard = () => {
                   </Typography>
                 }
                 icon={
-                 <img src="/images/cards/paypal-error.png" alt="Sales" style={{ width: '42px', height: '42px' }} /> 
+                 <img src="http://127.0.0.1:8000/cards/paypal-error.png" alt="Sales" style={{ width: '42px', height: '42px' }} /> 
                 }
               />
             </Grid>
@@ -119,6 +133,7 @@ const Dashboard = () => {
           <BrowserData />
         </Grid>
       </Grid>
+      <button onClick={addData}>addData</button>
     </ApexChartWrapper>
   )
 }

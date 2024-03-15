@@ -1,11 +1,5 @@
 import Grid from '@mui/material/Grid'
 import {Typography } from '@mui/material';
-// ** Icons Imports
-import Poll from 'mdi-material-ui/Poll'
-import CurrencyUsd from 'mdi-material-ui/CurrencyUsd'
-import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
-import BriefcaseVariantOutline from 'mdi-material-ui/BriefcaseVariantOutline'
-
 
 // ** Custom Components Imports
 import CardStatisticsVerticalComponent from 'src/@core/components/card-statistics/card-stats-vertical'
@@ -49,10 +43,10 @@ const Dashboard = () => {
                 title='Sales'
                 trend='negative'
                 color='secondary'
-                // trendNumber='+28.14%'
                 subtitle='&#8593;28.14%'
+                subtitleColor='#71dd37'
                 icon={
-                 <img src="/images/cards/wallet.png" alt="Sales" style={{ width: '42px', height: '42px' }} />
+                 <img src="http://127.0.0.1:8000/cards/wallet.png" alt="Sales" style={{ width: '42px', height: '42px' }} />
                   
                 }
                 // icon={<CurrencyUsd />}
@@ -79,7 +73,7 @@ const Dashboard = () => {
                   </Typography>
                 }
                 icon={
-                 <img src="/images/cards/paypal-error.png" alt="Sales" style={{ width: '42px', height: '42px' }} /> 
+                 <img src="http://127.0.0.1:8000/cards/paypal-error.png" alt="Sales" style={{ width: '42px', height: '42px' }} /> 
                 }
               />
             </Grid>
@@ -89,12 +83,6 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={12}>
               <ProfitReportComponent
-                // stats='862'
-                // trend='negative'
-                // trendNumber='-18%'
-                // title='New Project'
-                // subtitle='Yearly Project'
-                // icon={<BriefcaseVariantOutline />}
               />
             </Grid>
             

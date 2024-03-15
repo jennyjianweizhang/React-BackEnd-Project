@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="http://127.0.0.1:8000/uploadMultiple" method="post" enctype="multipart/form-data">
+        <select name="imageType">
+            <option value="avatars">Avatar</option>
+            <option value="cards">Card</option>
+            <option value="logos">Logo</option>
+            <option value="flags">Flags</option>
+            <option value="misc">Misc</option>
+            <option value="products">Products</option>
+            <option value="system">Systems</option>
+        </select>
+        <input type="file" name="photo" id="" multiple>
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>

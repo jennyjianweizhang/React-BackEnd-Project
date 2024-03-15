@@ -1,28 +1,32 @@
-import React, {useState} from 'react';
-import { Card, CardContent, Typography, Grid, Avatar, Button, Box, Menu, MenuItem } from '@mui/material';
+import React, {useState, useEffect} from 'react';
+import { Card, CardContent, Typography, Grid, Button, Box, Menu, MenuItem } from '@mui/material';
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
+import { fetchData } from 'src/@core/services/dataService';
   
 const TotalRevenueChart = () => {
-    const [activeYear, setActiveYear] = useState('2022');
+    const [activeYear, setActiveYear] = useState('all');
+    const [seriesData, setSeriesData] = useState([]); 
     const handleYearClick = (year) => {
             setActiveYear(year);
     };
-    const getSeriesData = () => {
-            if (activeYear === '2021') {
-            return [series[1]];
-            } else if (activeYear === '2022') {
-            return series;
-            }
-    };
+    // const getSeriesData = () => {
+    //         if (activeYear === '2022') {
+    //         return [series[1]];
+    //         } else if (activeYear === '2023') {
+    //         return series;
+    //         }
+    // };
 
     const colors = {
-        '2021': '#03c9d7', 
-        '2022': '#6875f5'  
+        '2022': '#03c9d7', 
+        'Spacer': '#fff',
+        '2023': '#6875f5'  
     };
       
     const chartOptions = {
         chart: {
         type: 'bar',
+        stacked: true,
         toolbar: {
             show: false 
         }
@@ -31,7 +35,7 @@ const TotalRevenueChart = () => {
         bar: {
             borderRadius: 10,
             horizontal: false,
-            columnWidth: '50%',
+            columnWidth: '30%',
             endingShape: 'rounded' 
         },
         },
@@ -76,23 +80,52 @@ const TotalRevenueChart = () => {
         }
         },
         legend: {
-        position: 'top',
-        horizontalAlign: 'left',
-        floating: true,
-        offsetY: -25,
-        offsetX: -5
+          show: false 
         },
-        colors: ['#6875f5', '#03c9d7'] 
+        colors: ['#6875f5', '#fff', '#03c9d7'] 
     };
 
-  const series = [{
-    name: '2022',
-    data: [44, 55, 57, 56, 61, 58, 63, 60] 
-  }, {
-    name: '2021',
-    data: [-35, -41, -36, -26, -45, -48, -52, -53] 
-  }];
-  
+  // const series = [{
+  //   name: '2023',
+  //   data: [44, 55, 57, 56, 61, 58, 63, 60] 
+  // }, {
+  //   name: '2022',
+  //   data: [-35, -41, -36, -26, -45, -48, -52, -53] 
+  // }];
+
+  useEffect(() => {
+    async function getData() {
+        try {
+            const fetchedData = await fetchData(); 
+            console.log(fetchedData);
+
+            const data2022 = fetchedData.find(item => item.id === 'totalRevenue2022');
+            const data2023 = fetchedData.find(item => item.id === 'totalRevenue2023');
+            const spacer = fetchedData.find(item => item.id === 'totalRevenueSpacer')
+
+            let series = [];
+            if (activeYear === '2022' && data2022) {
+                series = [{ name: '2022', data: data2022.data }];
+            } else if (activeYear === '2023' && data2023) {
+                series = [{ name: '2023', data: data2023.data }];
+            } else if (activeYear === 'all') {
+                series = [data2022, spacer, data2023].filter(Boolean).map(item => ({
+                    name: item.name,
+                    data: item.data
+                }));
+            }
+            // .filter(Boolean) is to remove any falsy values from the array
+            setSeriesData(series);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            setSeriesData([]);
+        }
+    }
+
+    getData();
+}, [activeYear]);
+// re-fetch when it changes
+ 
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -128,7 +161,6 @@ const TotalRevenueChart = () => {
                 fontSize: '24px',
                 show: true,
               },
-
             },
             track: {
               background: 'white',
@@ -182,7 +214,7 @@ const TotalRevenueChart = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={7} xl={8}>
-        <Card>
+        <Card sx={{borderBottomRightRadius:0, borderTopRightRadius:0}}>
           <CardContent>
             <Typography variant="h6">Total Revenue
             </Typography>
@@ -192,12 +224,12 @@ const TotalRevenueChart = () => {
                     width: '10px',
                     height: '10px',
                     borderRadius: '50%',
-                    backgroundColor: colors['2021'],
+                    backgroundColor: colors['2022'],
                     marginRight: '-6px'
                 }}
             ></span>
-            <Button size="small" onClick={() => handleYearClick('2021')}>
-                2021
+            <Button size="small" onClick={() => handleYearClick('2022')}>
+                2022
             </Button>
             <span
                 style={{
@@ -205,16 +237,16 @@ const TotalRevenueChart = () => {
                 width: '10px',
                 height: '10px',
                 borderRadius: '50%',
-                backgroundColor: colors['2022'],
+                backgroundColor: colors['2023'],
                 marginRight: '-6px'
                 }}
             ></span>
-            <Button size="small" onClick={() => handleYearClick('2022')}>
-                2022
+            <Button size="small" onClick={() => handleYearClick('2023')}>
+                2023
             </Button>
             <ReactApexcharts
               options={chartOptions}
-              series={getSeriesData()}
+              series={seriesData}
               type="bar"
               height={300}
             />
@@ -222,7 +254,7 @@ const TotalRevenueChart = () => {
         </Card>
       </Grid>
       <Grid item xs={12} sm={5} xl={4}>
-        <Card style={{ marginLeft: '-7px' }}>
+        <Card style={{ marginLeft: '-7px', borderBottomLeftRadius:0, borderTopLeftRadius:0 }}>
           <CardContent>
             <Button variant="outlined" size="small" aria-controls="simple-menu" 
               aria-haspopup="true" 

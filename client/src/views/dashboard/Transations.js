@@ -5,42 +5,42 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 const TransactionCard = () => {
   const transactions = [
     {
-      image: '/images/cards/paypal-error.png',
+      image: 'http://127.0.0.1:8000/cards/paypal-error.png',
       title: 'Paypal',
       subtitle: 'Send money',
       amount: '+82.6',
       currency: 'USD'
     },
     {
-      image: '/images/cards/wallet-primary.png',
+      image: 'http://127.0.0.1:8000/cards/wallet-primary.png',
       title: 'Wallet',
       subtitle: 'Mac\'D',
       amount: '+270.69',
       currency: 'USD'
     },
     {
-        image: '/images/cards/chart-info.png',
+        image: 'http://127.0.0.1:8000/cards/chart-info.png',
         title: 'Transfer',
         subtitle: 'Refund',
         amount: '+637.91',
         currency: 'USD'
     },
     {
-        image: '/images/cards/credit-card-success.png',
+        image: 'http://127.0.0.1:8000/cards/credit-card-success.png',
         title: 'Wallet',
         subtitle: 'Mac\'D',
         amount: '+270.69',
         currency: 'USD'
     },
     {
-        image: '/images/cards/wallet-primary.png',
+        image: 'http://127.0.0.1:8000/cards/wallet-primary.png',
         title: 'Credit Card',
         subtitle: 'Ordered Food',
         amount: '-838.71',
         currency: 'USD'
     },
     {
-        image: '/images/cards/credit-card-warning.png',
+        image: 'http://127.0.0.1:8000/cards/credit-card-warning.png',
         title: 'Wallet',
         subtitle: 'Starbucks',
         amount: '+203.33',

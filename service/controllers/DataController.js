@@ -1,21 +1,22 @@
-const DataModel =require('../model/DataModel')
+const DataModel = require('../model/DataModel')
 
-exports.addData = async (req, res) => {
-    const {name, data} = req.body;
+exports.addData = async (data) => {
 
     try {
-        const savedData = await DataModel.create({name, data});
-        res.status(201).json(savedData);
+        const savedData = await DataModel.create(data);
+        console.log('success' , savedData);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        console.log('添加失败', error);
     }
 }
 
-exports.getData = async (req, res) => {
+exports.getData = async () => {
     try {
-        const data = await DataModel.find();
-        res.json(data);
+        console.log('获取成功');
+        return await DataModel.find();
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.log('Not Found', error);
     }
 };
+
+

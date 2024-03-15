@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import { Card, CardContent, Typography, Grid, Avatar, Button, Box, Menu, MenuItem } from '@mui/material';
+import React, {useState, useEffect} from 'react';
+import { Card, CardContent, Typography, Box} from '@mui/material';
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
-
+import { fetchData } from 'src/@core/services/dataService';
 
 const RevenueChartComponent = () => {
   const chartOptions = {
@@ -30,8 +30,13 @@ const RevenueChartComponent = () => {
       labels: {
         style: {
           colors: 'rgba(50, 71, 92, 0.38)',
-        //   fontSize: '14px',
         },
+      },
+      axisTicks: {
+        show: false,
+      },
+      axisBorder: {
+        show: false,
       },
     },
     yaxis: {
@@ -46,10 +51,37 @@ const RevenueChartComponent = () => {
     colors:['rgba(105, 108, 255, 0.16)','rgba(105, 108, 255, 0.16)','rgba(105, 108, 255, 0.16)','rgba(105, 108, 255, 0.16)','rgb(105, 108, 255)','rgba(105, 108, 255, 0.16)','rgba(105, 108, 255, 0.16)']
   };
 
-  const series = [{
-    name: 'Revenue',
-    data: [23, 81, 70, 31, 99, 46, 73],
-  }];
+  const [series, setSeries] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const fetchedData = await fetchData(); 
+        console.log(fetchedData);
+        
+        if (fetchedData && Array.isArray(fetchedData) && fetchedData.length > 0) {
+          const revenueDataSeries = fetchedData.find(item => item.name === 'Revenue data');
+          if (revenueDataSeries) {
+            setSeries([{
+              name: revenueDataSeries.name,
+              data: revenueDataSeries.data
+            }]);
+          } else {
+            console.log('Profit data not found');
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    getData();
+  }, []);
+
+  // const series = [{
+  //   name: 'Revenue',
+  //   data: [23, 81, 70, 31, 99, 46, 73],
+  // }];
     
   return (
     <Box className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6">

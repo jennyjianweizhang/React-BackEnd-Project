@@ -27,3 +27,14 @@ code[class*='language-'] {
   filter: drop-shadow(0.1px 0.1px 0.1px #71dd37);
 }
 
+.apexcharts-svg .apexcharts-datalabels-group .apexcharts-text{
+  font-size: 16.5px !important;
+}
+.custom-radial-chart-style .apexcharts-radialbar .apexcharts-datalabels-group .apexcharts-text{
+  font-size: 20px !important;
+}
+.custom-sparkline-chart-coversionrate .apexcharts-xaxis {
+  display: none;
+}
+
+

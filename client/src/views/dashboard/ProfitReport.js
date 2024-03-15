@@ -54,24 +54,33 @@ const ProfitReportComponent = () => {
       
     };
 
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState(null); 
+    const [series, setSeries] = useState([]);
 
     useEffect(() => {
-      const loadData = async () => {
-          try {
-              setLoading(true); 
-              const result = await fetchData('/getData');
-              setData(result); 
-          } catch (error) {
-              console.error("Failed to fetch profit data:", error);
-          } finally {
-              setLoading(false); 
+      async function getData() {
+        try {
+          const fetchedData = await fetchData(); 
+          console.log(fetchedData);
+          
+          if (fetchedData && Array.isArray(fetchedData) && fetchedData.length > 0) {
+            const profitDataSeries = fetchedData.find(item => item.name === 'Profit data');
+            if (profitDataSeries) {
+              setSeries([{
+                name: profitDataSeries.name,
+                data: profitDataSeries.data
+              }]);
+            } else {
+              console.log('Profit data not found');
+            }
           }
-      };
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+  
+      getData();
+    }, []);
 
-      loadData(); 
-  }, []);
 
   
     // const series = [
@@ -80,12 +89,22 @@ const ProfitReportComponent = () => {
     //         data: [10, 190, 45, 140, 125,320] 
     //       }
     // ];
-    
-    const series = data ? [{ name: 'Profit data', data: data.profitData }] : [];
-    
+
+  // async function getData(){
+  //   try {
+  //     const fetchedData = await fetchData();
+  //     console.log(fetchedData);
+  //   } catch(error){
+  //     console.log(error);
+  //   }
+  // }
+  
+ 
+  
   
     return (
         <Card sx={{ width: '330px', height: '202px' }}>
+          {/* <button onClick={getData}>getData</button> */}
             <CardContent>
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Box>

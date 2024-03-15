@@ -23,7 +23,7 @@ const BrowserData = () => {
       name: "USA",
       visits: "87.24k",
       percentage: 38.12,
-      image: "/images/flags/usa.png",
+      image: "http://127.0.0.1:8000/flags/usa.png",
       color: "primary",
     },
     {
@@ -31,7 +31,7 @@ const BrowserData = () => {
       name: "Brazil",
       visits: "42.69k",
       percentage: 28.23,
-      image: "/images/flags/brazil.png",
+      image: "http://127.0.0.1:8000/flags/brazil.png",
       color: "success",
     },
     {
@@ -39,7 +39,7 @@ const BrowserData = () => {
       name: "India",
       visits: "12.58k",
       percentage: 13.82,
-      image: "/images/flags/india.png",
+      image: "http://127.0.0.1:8000/flags/india.png",
       color: "error",
     },
     {
@@ -47,7 +47,7 @@ const BrowserData = () => {
       name: "Australia",
       visits: "4.13k",
       percentage: 12.72,
-      image: "/images/flags/australia.png",
+      image: "http://127.0.0.1:8000/flags/australia.png",
       color: "warning",
     },
     {
@@ -55,7 +55,7 @@ const BrowserData = () => {
       name: "China",
       visits: "2.21k",
       percentage: 7.11,
-      image: "/images/flags/china.png",
+      image: "http://127.0.0.1:8000/flags/china.png",
       color: "info",
     },
     {
@@ -63,7 +63,7 @@ const BrowserData = () => {
       name: "France",
       visits: "1.56k",
       percentage: 6.59,
-      image: "/images/flags/france.png",
+      image: "http://127.0.0.1:8000/flags/france.png",
       color: "success",
     },
   ];
@@ -74,7 +74,7 @@ const BrowserData = () => {
       name: "Chrome",
       visits: "8.92k",
       percentage: 64.91,
-      image: "/images/system/chrome.png",
+      image: "http://127.0.0.1:8000/system/chrome.png",
       color: "primary",
     },
     {
@@ -82,7 +82,7 @@ const BrowserData = () => {
       name: "Safari",
       visits: "1.29k",
       percentage: 19.03,
-      image: "/images/system/safari.png",
+      image: "http://127.0.0.1:8000/system/safari.png",
       color: "success",
     },
     {
@@ -90,7 +90,7 @@ const BrowserData = () => {
       name: "Firefox",
       visits: "328",
       percentage: 3.26,
-      image: "/images/system/firefox.png",
+      image: "http://127.0.0.1:8000/system/firefox.png",
       color: "error",
     },
     {
@@ -98,7 +98,7 @@ const BrowserData = () => {
       name: "Edge",
       visits: "142",
       percentage: 3.99,
-      image: "/images/system/edge.png",
+      image: "http://127.0.0.1:8000/system/edge.png",
       color: "warning",
     },
     {
@@ -106,7 +106,7 @@ const BrowserData = () => {
       name: "Opera",
       visits: "85",
       percentage: 2.12,
-      image: "/images/system/opera.png",
+      image: "http://127.0.0.1:8000/system/opera.png",
       color: "info",
     },
     {
@@ -114,7 +114,7 @@ const BrowserData = () => {
       name: "Brave",
       visits: "36",
       percentage: 1.06,
-      image: "/images/system/brave.png",
+      image: "http://127.0.0.1:8000/system/brave.png",
       color: "success",
     },
   ];
@@ -125,7 +125,7 @@ const BrowserData = () => {
       name: "Windows",
       visits: "475.26k",
       percentage: 61.5,
-      image: "/images/system/windows.png",
+      image: "http://127.0.0.1:8000/system/windows.png",
       color: "primary",
     },
     {
@@ -133,7 +133,7 @@ const BrowserData = () => {
       name: "Mac",
       visits: "89.12k",
       percentage: 15.67,
-      image: "/images/system/mac.png",
+      image: "http://127.0.0.1:8000/system/mac.png",
       color: "success",
     },
     {
@@ -141,7 +141,7 @@ const BrowserData = () => {
       name: "Ubuntu",
       visits: "38.68k",
       percentage: 5.82,
-      image: "/images/system/ubuntu.png",
+      image: "http://127.0.0.1:8000/system/ubuntu.png",
       color: "error",
     },
     {
@@ -149,7 +149,7 @@ const BrowserData = () => {
       name: "Linux",
       visits: "30.27k",
       percentage: 5.03,
-      image: "/images/system/linux.png",
+      image: "http://127.0.0.1:8000/system/linux.png",
       color: "warning",
     },
     {
@@ -157,7 +157,7 @@ const BrowserData = () => {
       name: "Chrome",
       visits: "8.34k",
       percentage: 3.25,
-      image: "/images/system/chrome.png",
+      image: "http://127.0.0.1:8000/system/chrome.png",
       color: "info",
     },
     {
@@ -165,7 +165,7 @@ const BrowserData = () => {
       name: "Cent",
       visits: "2.25k",
       percentage: 1.76,
-      image: "/images/system/cent.png",
+      image: "http://127.0.0.1:8000/system/cent.png",
       color: "success",
     },
   ];

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import { styled, useTheme } from '@mui/material/styles'
 
-// Styled component for the triangle shaped background image
+
 const TriangleImg = styled('img')({
   right: 0,
   bottom: 0,
@@ -13,7 +13,7 @@ const TriangleImg = styled('img')({
   position: 'absolute'
 })
 
-// Styled component for the trophy image
+
 const TrophyImg = styled('img')({
   right: 36,
   bottom: 20,
@@ -22,7 +22,7 @@ const TrophyImg = styled('img')({
 })
 
 const Trophy = () => {
-  // ** Hook
+  
   const theme = useTheme()
   const imageSrc = theme.palette.mode === 'light' ? 'triangle-light.png' : 'triangle-dark.png'
 
@@ -43,7 +43,7 @@ const Trophy = () => {
           VIEW Badges
         </Button>
         {/* <TriangleImg alt='triangle background' src={`/images/misc/${imageSrc}`} /> */}
-        <TrophyImg alt='trophy' src='/images/cards/illustration-john-light.png' sx={{width:'207px', height:'170px', bottom:'-1px'}}/>
+        <TrophyImg alt='trophy' src='http://127.0.0.1:8000/cards/illustration-john-light.png' sx={{width:'207px', height:'170px', bottom:'-1px'}}/>
       </CardContent>
     </Card>
   )
