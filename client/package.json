@@ -50,7 +50,7 @@
     "@emotion/react": "^11.7.0",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.15.6",
+    "@mui/icons-material": "^5.15.15",
     "@mui/lab": "^5.0.0-alpha.70",
     "@mui/material": "^5.4.3",
     "@popperjs/core": "^2.11.2",
@@ -72,7 +72,9 @@
     "react-dom": "17.0.2",
     "react-perfect-scrollbar": "^1.5.8",
     "react-popper": "^2.2.5",
+    "react-quill": "^2.0.0",
     "react-redux": "^7.2.9",
+    "react-router-dom": "^6.22.3",
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {

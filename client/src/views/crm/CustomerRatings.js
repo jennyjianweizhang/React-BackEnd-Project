@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Grid,
   Card,
@@ -10,12 +11,12 @@ import {
   Chip,
   Box,
   Menu,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import ReactApexcharts from "src/@core/components/react-apexcharts";
-import { fetchData } from 'src/@core/services/dataService';
+import { fetchAllData } from "src/store/crmData";
 
 // const series = [
 //   {
@@ -63,8 +64,8 @@ const options = {
       show: false,
     },
     axisTicks: {
-        show: false,
-      },
+      show: false,
+    },
   },
   yaxis: {
     labels: {
@@ -103,38 +104,65 @@ const options = {
 };
 
 const CustomerRating = () => {
-    const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-  
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    const [series, setSeries] = useState([]);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-    useEffect(() => {
-      async function getData() {
-        try {
-          const fetchedData = await fetchData(); 
-          console.log(fetchedData);
+  const [series, setSeries] = useState([]);
+  const dispatch = useDispatch();
+  const { allData, isLoading } = useSelector((state) => state.crmData);
 
-          const CustomerRating1 = fetchedData.find(item => item.id === 'CustomerRating1');
-            const CustomerRating2 = fetchedData.find(item => item.id === 'CustomerRating2');
-          
-            setSeries([
-              { name: CustomerRating1.name, data: CustomerRating1.data },
-              { name: CustomerRating2.name, data: CustomerRating2.data }
-            ]);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      }
-  
-      getData();
-    }, []);
+  useEffect(() => {
+    dispatch(fetchAllData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const CustomerRating1 = allData.find(
+      (item) => item.id === "CustomerRating1"
+    );
+
+    const CustomerRating2 = allData.find(
+      (item) => item.id === "CustomerRating2"
+    );
+
+    if (CustomerRating1 && CustomerRating2) {
+      setSeries([
+        { name: CustomerRating1.name, data: CustomerRating1.data },
+        { name: CustomerRating2.name, data: CustomerRating2.data },
+      ]);
+    }
+  }, [allData]);
+
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const fetchedData = await fetchData();
+  //       console.log(fetchedData);
+
+  //       const CustomerRating1 = fetchedData.find(
+  //         (item) => item.id === "CustomerRating1"
+  //       );
+  //       const CustomerRating2 = fetchedData.find(
+  //         (item) => item.id === "CustomerRating2"
+  //       );
+
+  //       setSeries([
+  //         { name: CustomerRating1.name, data: CustomerRating1.data },
+  //         { name: CustomerRating2.name, data: CustomerRating2.data },
+  //       ]);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   getData();
+  // }, []);
 
   return (
     <Grid>

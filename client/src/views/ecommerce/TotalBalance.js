@@ -11,9 +11,11 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ReactApexcharts from "src/@core/components/react-apexcharts";
-import { fetchData } from 'src/@core/services/dataService';
+// import { fetchData } from "src/@core/services/ecommerceDataService";
+import { fetchAllData } from "src/store/ecommerceData";
 
 const TotalBalanceCard = () => {
   const chartOptions = {
@@ -76,32 +78,59 @@ const TotalBalanceCard = () => {
   //   },
   // ];
 
+  // const [chartSeries, setSeries] = useState([]);
+
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const fetchedData = await fetchData();
+  //       console.log(fetchedData);
+
+  //       if (
+  //         fetchedData &&
+  //         Array.isArray(fetchedData) &&
+  //         fetchedData.length > 0
+  //       ) {
+  //         const balanceDataSeries = fetchedData.find(
+  //           (item) => item.name === "Balance"
+  //         );
+  //         if (balanceDataSeries) {
+  //           setSeries([
+  //             {
+  //               name: balanceDataSeries.name,
+  //               data: balanceDataSeries.data,
+  //             },
+  //           ]);
+  //         } else {
+  //           console.log("Balance Data not found");
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   getData();
+  // }, []);
+
+  const dispatch = useDispatch();
+  const { allData, isLoading } = useSelector((state) => state.ecommerceData);
   const [chartSeries, setSeries] = useState([]);
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const fetchedData = await fetchData(); 
-        console.log(fetchedData);
-        
-        if (fetchedData && Array.isArray(fetchedData) && fetchedData.length > 0) {
-          const balanceDataSeries = fetchedData.find(item => item.name === 'Balance');
-          if (balanceDataSeries) {
-            setSeries([{
-              name: balanceDataSeries.name,
-              data: balanceDataSeries.data
-            }]);
-          } else {
-            console.log('Balance Data not found');
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
+    dispatch(fetchAllData());
+  }, [dispatch]);
 
-    getData();
-  }, []);
+  useEffect(() => {
+    const balanceDataSeries = allData.find((item) => item.name === "Balance");
+    if (balanceDataSeries) {
+      setSeries([
+        { name: balanceDataSeries.name, data: balanceDataSeries.data },
+      ]);
+    }
+  }, [allData]);
+
+  // if (isLoading) return <div>Loading...</div>;
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -125,16 +154,16 @@ const TotalBalanceCard = () => {
           }
         />
         <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>Last 28 Days</MenuItem>
-            <MenuItem onClick={handleClose}>Last Month</MenuItem>
-            <MenuItem onClick={handleClose}>Last Year</MenuItem>
-          </Menu>
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>Last 28 Days</MenuItem>
+          <MenuItem onClick={handleClose}>Last Month</MenuItem>
+          <MenuItem onClick={handleClose}>Last Year</MenuItem>
+        </Menu>
         <CardContent>
           <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -210,7 +239,7 @@ const TotalBalanceCard = () => {
               height={217}
             />
           </Box>
-          <Divider/>
+          <Divider />
           <Box p={2} display={"flex"} mt={7}>
             <Box>
               <Typography variant="body2">

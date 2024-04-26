@@ -1,9 +1,18 @@
-import React, {useState, useEffect} from "react";
-import { Grid, Card, CardContent, Typography, Box, Divider } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  Divider,
+} from "@mui/material";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { useDispatch, useSelector } from "react-redux";
 import ReactApexcharts from "src/@core/components/react-apexcharts";
-import { fetchData } from 'src/@core/services/dataService';
+// import { fetchData } from "src/@core/services/ecommerceDataService";
+import { fetchAllData } from "src/store/ecommerceData";
 
 const NewVisitors = () => {
   // const series = [
@@ -13,32 +22,62 @@ const NewVisitors = () => {
   //   },
   // ];
 
+  // const [series, setSeries] = useState([]);
+
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const fetchedData = await fetchData();
+  //       console.log(fetchedData);
+
+  //       if (
+  //         fetchedData &&
+  //         Array.isArray(fetchedData) &&
+  //         fetchedData.length > 0
+  //       ) {
+  //         const visitorsDataSeries = fetchedData.find(
+  //           (item) => item.name === "NewVisitors"
+  //         );
+  //         if (visitorsDataSeries) {
+  //           setSeries([
+  //             {
+  //               name: visitorsDataSeries.name,
+  //               data: visitorsDataSeries.data,
+  //             },
+  //           ]);
+  //         } else {
+  //           console.log("Visitors data not found");
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   getData();
+  // }, []);
+
+  const dispatch = useDispatch();
+  const { allData, isLoading } = useSelector((state) => state.ecommerceData);
   const [series, setSeries] = useState([]);
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const fetchedData = await fetchData(); 
-        console.log(fetchedData);
-        
-        if (fetchedData && Array.isArray(fetchedData) && fetchedData.length > 0) {
-          const visitorsDataSeries = fetchedData.find(item => item.name === 'NewVisitors');
-          if (visitorsDataSeries) {
-            setSeries([{
-              name: visitorsDataSeries.name,
-              data: visitorsDataSeries.data
-            }]);
-          } else {
-            console.log('Visitors data not found');
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
+    dispatch(fetchAllData());
+  }, [dispatch]);
 
-    getData();
-  }, []);
+  useEffect(() => {
+    const visitorsDataSeries = allData.find(
+      (item) => item.name === "NewVisitors"
+    );
+
+    if (visitorsDataSeries) {
+      setSeries([
+        { name: visitorsDataSeries.name, data: visitorsDataSeries.data },
+      ]);
+    }
+  }, [allData]);
+
+  // if (isLoading) return <div>Loading...</div>;
 
   const chartOptions = {
     chart: {
@@ -169,37 +208,58 @@ const NewVisitors = () => {
   // ];
   const [chartSeries2, setSeries2] = useState([]);
 
-  useEffect(() => {
-    async function getData() {
-      try {
-        const fetchedData = await fetchData(); 
-        console.log(fetchedData);
-        
-        if (fetchedData && Array.isArray(fetchedData) && fetchedData.length > 0) {
-          const activityDataSeries = fetchedData.find(item => item.name === 'Activity');
-          if (activityDataSeries) {
-            setSeries2([{
-              name: activityDataSeries.name,
-              data: activityDataSeries.data
-            }]);
-          } else {
-            console.log('Activity data not found');
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const fetchedData = await fetchData();
+  //       console.log(fetchedData);
 
-    getData();
-  }, []);
+  //       if (
+  //         fetchedData &&
+  //         Array.isArray(fetchedData) &&
+  //         fetchedData.length > 0
+  //       ) {
+  //         const activityDataSeries = fetchedData.find(
+  //           (item) => item.name === "Activity"
+  //         );
+  //         if (activityDataSeries) {
+  //           setSeries2([
+  //             {
+  //               name: activityDataSeries.name,
+  //               data: activityDataSeries.data,
+  //             },
+  //           ]);
+  //         } else {
+  //           console.log("Activity data not found");
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   getData();
+  // }, []);
+
+  useEffect(() => {
+    const activityDataSeries = allData.find((item) => item.name === "Activity");
+
+    if (activityDataSeries) {
+      setSeries2([
+        { name: activityDataSeries.name, data: activityDataSeries.data },
+      ]);
+    }
+  }, [allData]);
+
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <Grid>
       {/* First chart */}
       <Grid>
         <Card>
           <CardContent>
-            <Box display="flex" >
+            <Box display="flex">
               <Box flex={1} marginRight={3.5}>
                 <Typography variant="h6" width={"10rem"}>
                   New Visitors
@@ -207,7 +267,7 @@ const NewVisitors = () => {
                 <Typography
                   variant="body2"
                   marginLeft={"15rem"}
-                  marginTop={'-1.5rem'}
+                  marginTop={"-1.5rem"}
                   color={"rgba(50, 71, 92, 0.6)"}
                 >
                   Last Week
@@ -246,7 +306,7 @@ const NewVisitors = () => {
                       series={series}
                       type="bar"
                       height="100"
-                      width='200'
+                      width="200"
                     />
                   </Box>
                 </Box>

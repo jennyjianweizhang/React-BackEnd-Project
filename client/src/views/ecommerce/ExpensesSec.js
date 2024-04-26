@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, Paper, CardContent, Typography, Box } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ReactApexcharts from "src/@core/components/react-apexcharts";
-import { fetchData } from 'src/@core/services/dataService';
+// import { fetchData } from "src/@core/services/ecommerceDataService";
+import { fetchAllData } from "src/store/ecommerceData";
 
 const ExpensesSecChart = () => {
   const chartOptions = {
@@ -85,30 +87,65 @@ const ExpensesSecChart = () => {
   //   },
   // ];
 
+  // const [chartSeries, setSeries] = useState([]);
+
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const fetchedData = await fetchData();
+  //       console.log(fetchedData);
+
+  //       const ProductAExpenses = fetchedData.find(
+  //         (item) => item.id === "Product A Expenses"
+  //       );
+  //       const SpacerExpenses = fetchedData.find(
+  //         (item) => item.id === "Spacer Expenses"
+  //       );
+  //       const ProductBExpenses = fetchedData.find(
+  //         (item) => item.id === "Product B Expenses"
+  //       );
+
+  //       setSeries([
+  //         { name: ProductAExpenses.name, data: ProductAExpenses.data },
+  //         { name: SpacerExpenses.name, data: SpacerExpenses.data },
+  //         { name: ProductBExpenses.name, data: ProductBExpenses.data },
+  //       ]);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   getData();
+  // }, []);
+
+  const dispatch = useDispatch();
+  const { allData, isLoading } = useSelector((state) => state.ecommerceData);
   const [chartSeries, setSeries] = useState([]);
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const fetchedData = await fetchData(); 
-        console.log(fetchedData);
-        
-        const ProductAExpenses = fetchedData.find(item => item.id === 'Product A Expenses');
-            const SpacerExpenses = fetchedData.find(item => item.id === 'Spacer Expenses');
-            const ProductBExpenses = fetchedData.find(item => item.id === 'Product B Expenses')
+    dispatch(fetchAllData());
+  }, [dispatch]);
 
-            setSeries([
-              { name: ProductAExpenses.name, data: ProductAExpenses.data },
-              { name: SpacerExpenses.name, data: SpacerExpenses.data },
-              { name: ProductBExpenses.name, data: ProductBExpenses.data },
-            ]);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+  useEffect(() => {
+    const ProductAExpenses = allData.find(
+      (item) => item.id === "Product A Expenses"
+    );
+    const SpacerExpenses = allData.find(
+      (item) => item.id === "Spacer Expenses"
+    );
+    const ProductBExpenses = allData.find(
+      (item) => item.id === "Product B Expenses"
+    );
+    if (ProductAExpenses && SpacerExpenses && ProductBExpenses) {
+      setSeries([
+        { name: ProductAExpenses.name, data: ProductAExpenses.data },
+        { name: SpacerExpenses.name, data: SpacerExpenses.data },
+        { name: ProductBExpenses.name, data: ProductBExpenses.data },
+      ]);
     }
+  }, [allData]);
 
-    getData();
-  }, []);
+  // if (isLoading) return <div>Loading...</div>;
 
   return (
     <Grid>
@@ -128,9 +165,19 @@ const ExpensesSecChart = () => {
                 display: "flex",
               }}
             >
-              <ArrowDownwardIcon style={{ color: "rgb(255, 62, 29)" }}>
-              </ArrowDownwardIcon>
-              <Typography variant="body2" style={{ color: "rgb(255, 62, 29)", fontSize:'0.875rem', fontWeight:'500' }}>8.2%</Typography>
+              <ArrowDownwardIcon
+                style={{ color: "rgb(255, 62, 29)" }}
+              ></ArrowDownwardIcon>
+              <Typography
+                variant="body2"
+                style={{
+                  color: "rgb(255, 62, 29)",
+                  fontSize: "0.875rem",
+                  fontWeight: "500",
+                }}
+              >
+                8.2%
+              </Typography>
             </Box>
             <ReactApexcharts
               options={chartOptions}
@@ -140,7 +187,17 @@ const ExpensesSecChart = () => {
               width={200}
             />
           </Box>
-          <Typography variant="body2" color="textSecondary" sx={{backgroundColor:'rgba(133, 146, 163, 0.16)', padding:'0.1rem 0.625rem', width:'6rem', borderRadius:'0.2rem', marginTop:'-3rem'}}>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            sx={{
+              backgroundColor: "rgba(133, 146, 163, 0.16)",
+              padding: "0.1rem 0.625rem",
+              width: "6rem",
+              borderRadius: "0.2rem",
+              marginTop: "-3rem",
+            }}
+          >
             JULY 2024
           </Typography>
         </CardContent>

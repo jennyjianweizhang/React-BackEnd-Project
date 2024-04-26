@@ -8,7 +8,6 @@ import MenuItem from "@mui/material/MenuItem";
 
 import React, { useState } from "react";
 
-// ** Icons Imports
 import DotsVertical from "mdi-material-ui/DotsVertical";
 
 const CardStatsVertical = (props) => {

@@ -1,4 +1,4 @@
-const DataModel = require('../model/DataModel')
+const DataModel = require('../model/ChatDataModel')
 
 exports.addData = async (data) => {
 
@@ -18,5 +18,3 @@ exports.getData = async () => {
         console.log('Not Found', error);
     }
 };
-
-

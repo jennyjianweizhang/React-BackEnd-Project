@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
   CardContent,
@@ -8,11 +9,11 @@ import {
   Typography,
   Box,
   Grid,
-  Icon,
 } from "@mui/material";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ReactApexcharts from "src/@core/components/react-apexcharts";
-import { fetchData } from "src/@core/services/dataService";
+import { fetchAllData } from "src/store/analyticsData";
+// import { fetchData } from "src/@core/services/ecommerceDataService";
 
 const TotalProfit = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -101,44 +102,61 @@ const TotalProfit = () => {
   };
 
   const [series, setSeries] = useState([]);
+  const dispatch = useDispatch();
+  const { allData, isLoading } = useSelector((state) => state.analyticsData);
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const fetchedData = await fetchData();
-        console.log(fetchedData);
+    dispatch(fetchAllData());
+  }, [dispatch]);
 
-        if (
-          fetchedData &&
-          Array.isArray(fetchedData) &&
-          fetchedData.length > 0
-        ) {
-          const profitDataSeries = fetchedData.find(
-            (item) => item.name === "Profit data"
-          );
-          if (profitDataSeries) {
-            setSeries([
-              {
-                name: profitDataSeries.name,
-                data: profitDataSeries.data,
-              },
-            ]);
-          } else {
-            console.log("Profit data not found");
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+  useEffect(() => {
+    const profitDataSeries = allData.find(
+      (item) => item.name === "Profit data"
+    );
+
+    if (profitDataSeries) {
+      setSeries([
+        {
+          name: profitDataSeries.name,
+          data: profitDataSeries.data,
+        },
+      ]);
     }
+  }, [allData]);
 
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const fetchedData = await fetchData();
+  //       console.log(fetchedData);
 
-  // const chartSeries = [{
-  //   name: "Series 1",
-  //   data: [31, 21, 30, 22, 42, 26, 35, 29]
-  // }];
+  //       if (
+  //         fetchedData &&
+  //         Array.isArray(fetchedData) &&
+  //         fetchedData.length > 0
+  //       ) {
+  //         const profitDataSeries = fetchedData.find(
+  //           (item) => item.name === "Profit data"
+  //         );
+  //         if (profitDataSeries) {
+  //           setSeries([
+  //             {
+  //               name: profitDataSeries.name,
+  //               data: profitDataSeries.data,
+  //             },
+  //           ]);
+  //         } else {
+  //           console.log("Profit data not found");
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   getData();
+  // }, []);
+
 
   return (
     <Grid container spacing={0.1}>

@@ -1,5 +1,7 @@
 import Login from 'mdi-material-ui/Login'
 import Table from 'mdi-material-ui/Table'
+import Email from 'mdi-material-ui/Email'
+import Chat from 'mdi-material-ui/Chat'
 import CubeOutline from 'mdi-material-ui/CubeOutline'
 import HomeOutline from 'mdi-material-ui/HomeOutline'
 import FormatLetterCase from 'mdi-material-ui/FormatLetterCase'
@@ -40,6 +42,17 @@ const navigation = () => {
     },
     {
       sectionTitle: 'App & Pages'
+    },
+    {
+      title: 'Email',
+      icon: Email,
+      path: '/email',
+      // openInNewTab: true
+    },
+    {
+      title:'Chat',
+      icon: Chat,
+      path: '/chat',
     },
     {
       title: 'Login',

@@ -19,8 +19,8 @@ import ExpensesSecChart from "src/views/ecommerce/ExpensesSec";
 import ProductPaid from "src/views/ecommerce/ProductPayment";
 import TotalBalanceCard from "src/views/ecommerce/TotalBalance";
 
-import { sendDataToBackend } from "src/@core/services/dataService";
-import datasetEcommerce from "src/@core/data/datasetEcommerce" 
+import { sendDataToBackend } from "src/@core/services/ecommerceDataService";
+import datasetEcommerce from "src/@core/data/datasetEcommerce";
 
 const TotalIncomeReport = [
   {
@@ -78,7 +78,7 @@ const AnalyticsDashboard = () => {
                 subtitleColor="#71dd37"
                 icon={
                   <img
-                    src='http://127.0.0.1:8000/cards/wallet.png'
+                    src="http://127.0.0.1:8000/cards/wallet.png"
                     alt="Sales"
                     style={{ width: "42px", height: "42px" }}
                   />
@@ -139,7 +139,7 @@ const AnalyticsDashboard = () => {
               />
             </Grid>
             <Grid item xs={6} md={3} lg={6}>
-            <SalesCard />
+              <SalesCard />
             </Grid>
             <Grid item xs={12} md={6} lg={12}>
               <ExpensesSecChart />

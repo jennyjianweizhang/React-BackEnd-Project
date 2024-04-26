@@ -173,7 +173,7 @@ const ActivityTimelineCard = () => {
                     <Box display="flex" alignItems="center">
                       {activity.teamMembers.map((member, memberIndex) => (
                         // <Avatar key={memberIndex} src={member.avatarSrc} />
-                        <TeamMember key={index} member={member} />
+                        <TeamMember key={memberIndex} member={member} />
                       ))}
                     </Box>
                   )}

@@ -26,7 +26,7 @@ import { createEmotionCache } from "src/@core/utils/create-emotion-cache";
 
 // ** React Perfect Scrollbar Style
 import "react-perfect-scrollbar/dist/css/styles.css";
-
+import 'react-quill/dist/quill.snow.css';
 // ** Global css styles
 import "../../styles/globals.css";
 

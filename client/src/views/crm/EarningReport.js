@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Grid,
   Card,
@@ -11,8 +12,10 @@ import {
   MenuItem,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import ReactApexcharts from 'src/@core/components/react-apexcharts'
-import { fetchData } from 'src/@core/services/dataService';
+import ReactApexcharts from "src/@core/components/react-apexcharts";
+import { fetchAllData } from "src/store/crmData";
+// import { fetchData } from "src/@core/services/ecommerceDataService";
+
 
 const EarningReportCard = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -31,17 +34,16 @@ const EarningReportCard = () => {
   // }];
 
   const chartOptions = {
-    
     chart: {
-      type: 'bar',
+      type: "bar",
       height: 80,
       toolbar: {
         show: false,
       },
     },
     legend: {
-        show: false
-      },
+      show: false,
+    },
     plotOptions: {
       bar: {
         distributed: true,
@@ -52,10 +54,10 @@ const EarningReportCard = () => {
       enabled: false,
     },
     xaxis: {
-      categories: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+      categories: ["M", "T", "W", "T", "F", "S", "S"],
       labels: {
         style: {
-          colors: 'rgba(50, 71, 92, 0.38)',
+          colors: "rgba(50, 71, 92, 0.38)",
         },
       },
       axisBorder: {
@@ -74,35 +76,72 @@ const EarningReportCard = () => {
     tooltip: {
       enabled: false,
     },
-    colors:['rgba(105, 108, 255, 0.16)','rgba(105, 108, 255, 0.16)','rgba(105, 108, 255, 0.16)','rgba(105, 108, 255, 0.16)','rgb(105, 108, 255)','rgba(105, 108, 255, 0.16)','rgba(105, 108, 255, 0.16)']
+    colors: [
+      "rgba(105, 108, 255, 0.16)",
+      "rgba(105, 108, 255, 0.16)",
+      "rgba(105, 108, 255, 0.16)",
+      "rgba(105, 108, 255, 0.16)",
+      "rgb(105, 108, 255)",
+      "rgba(105, 108, 255, 0.16)",
+      "rgba(105, 108, 255, 0.16)",
+    ],
   };
 
   const [series, setSeries] = useState([]);
+  const dispatch = useDispatch();
+  const { allData, isLoading } = useSelector((state) => state.crmData);
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const fetchedData = await fetchData(); 
-        console.log(fetchedData);
-        
-        if (fetchedData && Array.isArray(fetchedData) && fetchedData.length > 0) {
-          const earningDataSeries = fetchedData.find(item => item.name === 'EarningData');
-          if (earningDataSeries) {
-            setSeries([{
-              name: earningDataSeries.name,
-              data: earningDataSeries.data
-            }]);
-          } else {
-            console.log('earning data not found');
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
+    dispatch(fetchAllData());
+  }, [dispatch]);
 
-    getData();
-  }, []);
+  useEffect(() => {
+    const earningDataSeries = allData.find(
+      (item) => item.name === "EarningData"
+    );
+    
+    if (earningDataSeries) {
+      setSeries([
+        {
+          name: earningDataSeries.name,
+          data: earningDataSeries.data,
+        },
+      ]);
+    }
+  }, [allData]);
+
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const fetchedData = await fetchData();
+  //       console.log(fetchedData);
+
+  //       if (
+  //         fetchedData &&
+  //         Array.isArray(fetchedData) &&
+  //         fetchedData.length > 0
+  //       ) {
+  //         const earningDataSeries = fetchedData.find(
+  //           (item) => item.name === "EarningData"
+  //         );
+  //         if (earningDataSeries) {
+  //           setSeries([
+  //             {
+  //               name: earningDataSeries.name,
+  //               data: earningDataSeries.data,
+  //             },
+  //           ]);
+  //         } else {
+  //           console.log("earning data not found");
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   getData();
+  // }, []);
 
   return (
     <Grid>
@@ -110,7 +149,14 @@ const EarningReportCard = () => {
         <CardHeader
           title={<Typography variant="h6">Earning Report</Typography>}
           subheader={
-            <Typography variant="body1" style={{ marginTop: "8px", fontSize:"14px", color:'rgba(50, 71, 92, 0.6)'}}>
+            <Typography
+              variant="body1"
+              style={{
+                marginTop: "8px",
+                fontSize: "14px",
+                color: "rgba(50, 71, 92, 0.6)",
+              }}
+            >
               Weekly Earnings Overview
             </Typography>
           }
@@ -166,7 +212,9 @@ const EarningReportCard = () => {
                 <Typography variant="body1">Net Profit</Typography>
                 <Typography variant="body2">12.4k Sales</Typography>
               </Box>
-              <Typography variant="body2" marginLeft={13} marginTop={3}>$1,619</Typography>
+              <Typography variant="body2" marginLeft={13} marginTop={3}>
+                $1,619
+              </Typography>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
@@ -176,14 +224,16 @@ const EarningReportCard = () => {
                 width="1em"
                 height="1em"
                 viewBox="0 0 24 24"
-                style={{ marginTop: '12px', color:'rgb(113, 221, 55)'}}
+                style={{ marginTop: "12px", color: "rgb(113, 221, 55)" }}
               >
                 <path
                   fill="currentColor"
                   d="m6.293 13.293l1.414 1.414L12 10.414l4.293 4.293l1.414-1.414L12 7.586z"
                 ></path>
               </svg>
-              <Typography variant="body2" marginTop={3}>18.6%</Typography>
+              <Typography variant="body2" marginTop={3}>
+                18.6%
+              </Typography>
             </Box>
           </Box>
           <Box display="flex" marginTop={3}>
@@ -216,9 +266,13 @@ const EarningReportCard = () => {
               </svg>
             </Box>
             <Box marginLeft={5} display="flex">
-                <Box><Typography variant="body1">Total Income</Typography>
-              <Typography variant="body2">Sales, Affiliation</Typography></Box>
-              <Typography variant="body2" marginLeft={5} marginTop={3}>$3,571</Typography>
+              <Box>
+                <Typography variant="body1">Total Income</Typography>
+                <Typography variant="body2">Sales, Affiliation</Typography>
+              </Box>
+              <Typography variant="body2" marginLeft={5} marginTop={3}>
+                $3,571
+              </Typography>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
@@ -228,7 +282,7 @@ const EarningReportCard = () => {
                 width="1em"
                 height="1em"
                 viewBox="0 0 24 24"
-                style={{ marginTop: '12px', color:'rgb(113, 221, 55)'}}
+                style={{ marginTop: "12px", color: "rgb(113, 221, 55)" }}
               >
                 <path
                   fill="currentColor"
@@ -270,10 +324,14 @@ const EarningReportCard = () => {
               </svg>
             </Box>
             <Box marginLeft={5} display="flex">
-                <Box><Typography variant="body1">Total Expenses</Typography>
-              <Typography variant="body2">ADVT, Marketing</Typography></Box>
-              
-              <Typography variant="body2" marginLeft={5} marginTop={3}>$430</Typography>
+              <Box>
+                <Typography variant="body1">Total Expenses</Typography>
+                <Typography variant="body2">ADVT, Marketing</Typography>
+              </Box>
+
+              <Typography variant="body2" marginLeft={5} marginTop={3}>
+                $430
+              </Typography>
             </Box>
 
             <svg
@@ -285,7 +343,7 @@ const EarningReportCard = () => {
               width="1em"
               height="1em"
               viewBox="0 0 24 24"
-              style={{ marginTop: '12px', color:'rgb(113, 221, 55)'}}
+              style={{ marginTop: "12px", color: "rgb(113, 221, 55)" }}
             >
               <path
                 fill="currentColor"
@@ -296,13 +354,13 @@ const EarningReportCard = () => {
               52.8%
             </Typography>
           </Box>
-          <Box style={{ minHeight: '105px'}}>
-          <ReactApexcharts
-            options={chartOptions}
-            series={series}
-            type="bar"
-            height={105}
-          />
+          <Box style={{ minHeight: "105px" }}>
+            <ReactApexcharts
+              options={chartOptions}
+              series={series}
+              type="bar"
+              height={105}
+            />
           </Box>
         </CardContent>
       </Card>

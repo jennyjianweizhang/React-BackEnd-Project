@@ -6,6 +6,6 @@ const DataSchema =mongoose.Schema({
     "data": [Number] 
 });
 
-const DataModel = new mongoose.model('data', DataSchema)
+const DataModel = new mongoose.model('crmData', DataSchema)
 
 module.exports = DataModel

@@ -1,11 +1,9 @@
-// import axios from 'axios';
-import dataReports from '../data/datasets';
 import request from 'src/axios/authService';
 
 export const sendDataToBackend = async(dataset) => {
   try {
     await request({
-      url: '/addData',
+      url: '/addCRMData',
       method: 'POST',
       data: dataset,
     });
@@ -17,7 +15,7 @@ export const sendDataToBackend = async(dataset) => {
 export const fetchData = async() => {
   try {
     const response = await request({
-      url: '/getData',
+      url: '/getCRMData',
       method: 'GET',
     });
     return response.data;
@@ -26,11 +24,3 @@ export const fetchData = async() => {
     return null;
   }
 };
-
-// export const sendAllDataToBackend = () => {
-//   dataReports.forEach(dataset => {
-//     sendAllDataToBackend(dataset);
-//   })
-// }
-
-

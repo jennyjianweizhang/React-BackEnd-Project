@@ -19,7 +19,18 @@ import TransactionCard from 'src/views/dashboard/Transations';
 import ActivityTimelineCard from 'src/views/dashboard/ActivityTimeline';
 import BrowserData from 'src/views/dashboard/BrowserSystem';
 
+import { sendDataToBackend } from "src/@core/services/analyticsDataService";
+import dataReports from "src/@core/data/datasetAnalytics";
+
 const Dashboard = () => {
+  async function addData() {
+    try {
+      const res = await sendDataToBackend(dataReports);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <ApexChartWrapper>
       <Grid container spacing={6}>
@@ -104,6 +115,7 @@ const Dashboard = () => {
           <BrowserData />
         </Grid>
       </Grid>
+      <button onClick={addData}>addData</button>
     </ApexChartWrapper>
   )
 }

@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, Paper, CardHeader, Typography } from "@mui/material";
 import ReactApexcharts from "src/@core/components/react-apexcharts";
-import { fetchData } from 'src/@core/services/dataService';
+// import { fetchData } from "src/@core/services/ecommerceDataService";
+import { fetchAllData } from "src/store/crmData";
 
 const chartOptions = {
   chart: {
@@ -65,7 +67,7 @@ const chartOptions = {
   legend: {
     show: false,
   },
-  colors: ["#ff3e1d",'#fff', "#8592a3"],
+  colors: ["#ff3e1d", "#fff", "#8592a3"],
 };
 
 // const chartSeries = [
@@ -84,37 +86,69 @@ const chartOptions = {
 // ];
 
 const OverviewAndSalesActivity = () => {
+  const dispatch = useDispatch();
+  const { allData, isLoading } = useSelector((state) => state.crmData);
   const [chartSeries, setSeries] = useState([]);
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const fetchedData = await fetchData(); 
-        console.log(fetchedData);
-        
-        const SalesActivity1 = fetchedData.find(item => item.id === 'SalesActivity1');
-            const SalesActivity2 = fetchedData.find(item => item.id === 'SalesActivity2');
-            const SalesActivity3 = fetchedData.find(item => item.id === 'SalesActivity3')
+    dispatch(fetchAllData());
+  }, [dispatch]);
 
-            setSeries([
-              { name: SalesActivity1.name, data: SalesActivity1.data },
-              { name: SalesActivity2.name, data: SalesActivity2.data },
-              { name: SalesActivity3.name, data: SalesActivity3.data },
-            ]);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+  useEffect(() => {
+    const SalesActivity1 = allData.find(
+      (item) => item.id === "SalesActivity1"
+    );
+    const SalesActivity2 = allData.find(
+      (item) => item.id === "SalesActivity2"
+    );
+    const SalesActivity3 = allData.find(
+      (item) => item.id === "SalesActivity3"
+    );
+    if (SalesActivity1 && SalesActivity2 && SalesActivity3) {
+      setSeries([
+        { name: SalesActivity1.name, data: SalesActivity1.data },
+        { name: SalesActivity2.name, data: SalesActivity2.data },
+        { name: SalesActivity3.name, data: SalesActivity3.data },
+      ]);
     }
+  }, [allData]);
 
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const fetchedData = await fetchData();
+  //       console.log(fetchedData);
+
+  //       const SalesActivity1 = fetchedData.find(
+  //         (item) => item.id === "SalesActivity1"
+  //       );
+  //       const SalesActivity2 = fetchedData.find(
+  //         (item) => item.id === "SalesActivity2"
+  //       );
+  //       const SalesActivity3 = fetchedData.find(
+  //         (item) => item.id === "SalesActivity3"
+  //       );
+
+  //       setSeries([
+  //         { name: SalesActivity1.name, data: SalesActivity1.data },
+  //         { name: SalesActivity2.name, data: SalesActivity2.data },
+  //         { name: SalesActivity3.name, data: SalesActivity3.data },
+  //       ]);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   getData();
+  // }, []);
+  
   return (
     <Grid>
       <Paper elevation={6} style={{ position: "relative" }}>
         <CardHeader
           title="Overview & Sales Activity"
           subheader={
-            <Typography variant="body1" style={{ marginTop: '8px' }}> 
+            <Typography variant="body1" style={{ marginTop: "8px" }}>
               Check out each column for more details
             </Typography>
           }

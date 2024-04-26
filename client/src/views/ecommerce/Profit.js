@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Card, Typography, Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import ReactApexcharts from "src/@core/components/react-apexcharts";
-import { fetchData } from 'src/@core/services/dataService';
+// import { fetchData } from "src/@core/services/ecommerceDataService";
+import { fetchAllData } from "src/store/ecommerceData";
 
 const ProfitCard = () => {
   // const series = [
@@ -15,28 +17,49 @@ const ProfitCard = () => {
   //   },
   // ];
 
+  // const [series, setSeries] = useState([]);
+
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const fetchedData = await fetchData();
+  //       console.log(fetchedData);
+
+  //       const Series1 = fetchedData.find((item) => item.id === "Profit1");
+  //       const Series2 = fetchedData.find((item) => item.id === "Profit2");
+
+  //       setSeries([
+  //         { name: Series1.name, data: Series1.data },
+  //         { name: Series2.name, data: Series2.data },
+  //       ]);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   getData();
+  // }, []);
+
+  const dispatch = useDispatch();
+  const { allData, isLoading } = useSelector((state) => state.ecommerceData);
   const [series, setSeries] = useState([]);
 
-    useEffect(() => {
-      async function getData() {
-        try {
-          const fetchedData = await fetchData(); 
-          console.log(fetchedData);
+  useEffect(() => {
+    dispatch(fetchAllData());
+  }, [dispatch]);
 
-          const Series1 = fetchedData.find(item => item.id === 'Profit1');
-            const Series2 = fetchedData.find(item => item.id === 'Profit2');
-          
-            setSeries([
-              { name: Series1.name, data: Series1.data },
-              { name: Series2.name, data: Series2.data }
-            ]);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      }
-  
-      getData();
-    }, []);
+  useEffect(() => {
+    const Series1 = allData.find((item) => item.id === "Profit1");
+    const Series2 = allData.find((item) => item.id === "Profit2");
+    if (Series1 && Series2) {
+      setSeries([
+        { name: Series1.name, data: Series1.data },
+        { name: Series2.name, data: Series2.data },
+      ]);
+    }
+  }, [allData]);
+
+  if (isLoading) return <div>Loading...</div>;
 
   const chartOptions = {
     chart: {

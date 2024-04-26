@@ -2,7 +2,11 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { expressjwt } = require('express-jwt')
 const userRoute = require('./routes/UserRouter.js')
-const dataRoute = require('./routes/DataRouter.js')
+const ecommerceDataRouter = require('./routes/EcommerceDataRouter.js')
+const crmDataRouter = require('./routes/CRMDataRouter.js')
+const analyticsRouter = require('./routes/AnalyticsDataRouter.js')
+const emailDataRouter = require('./routes/EmailDataRouter.js')
+const chatDataRouter = require('./routes/ChatDataRouter.js')
 const imgRoute = require('./routes/ImgRouter.js')
 const path = require('path')
 const cors = require('cors');
@@ -21,7 +25,15 @@ app.use(bodyParser.json())
 
 app.use(userRoute)
 
-app.use(dataRoute)
+app.use(ecommerceDataRouter)
+
+app.use(crmDataRouter)
+
+app.use(emailDataRouter)
+
+app.use(analyticsRouter)
+
+app.use(chatDataRouter)
 
 app.use(imgRoute)
 

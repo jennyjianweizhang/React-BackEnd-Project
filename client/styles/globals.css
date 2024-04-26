@@ -37,4 +37,16 @@ code[class*='language-'] {
   display: none;
 }
 
+.emailComponent .css-9x9ee2-MuiPaper-root-MuiDrawer-paper {
+  top: 6rem;
+  left: 17.8rem;
+}
+
+.css-4vn2z8-MuiDrawer-docked .MuiDrawer-paper {
+  position: relative;
+  z-index: 2000;
+}
+
+
+
 

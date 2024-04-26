@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Grid,
   Card,
@@ -13,7 +14,8 @@ import {
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ReactApexcharts from "src/@core/components/react-apexcharts";
-import { fetchData } from 'src/@core/services/dataService';
+// import { fetchData } from "src/@core/services/ecommerceDataService";
+import { fetchAllData } from "src/store/ecommerceData";
 
 const TotalIncome = ({ datas }) => {
   const chartOptions = {
@@ -88,32 +90,61 @@ const TotalIncome = ({ datas }) => {
   //   },
   // ];
 
+  // const [series, setSeries] = useState([]);
+
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const fetchedData = await fetchData();
+  //       console.log(fetchedData);
+
+  //       if (
+  //         fetchedData &&
+  //         Array.isArray(fetchedData) &&
+  //         fetchedData.length > 0
+  //       ) {
+  //         const incomeDataSeries = fetchedData.find(
+  //           (item) => item.name === "Total Income"
+  //         );
+  //         if (incomeDataSeries) {
+  //           setSeries([
+  //             {
+  //               name: incomeDataSeries.name,
+  //               data: incomeDataSeries.data,
+  //             },
+  //           ]);
+  //         } else {
+  //           console.log("Income data not found");
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   getData();
+  // }, []);
+
+  const dispatch = useDispatch();
+  const { allData, isLoading } = useSelector((state) => state.ecommerceData);
   const [series, setSeries] = useState([]);
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const fetchedData = await fetchData(); 
-        console.log(fetchedData);
-        
-        if (fetchedData && Array.isArray(fetchedData) && fetchedData.length > 0) {
-          const incomeDataSeries = fetchedData.find(item => item.name === 'Total Income');
-          if (incomeDataSeries) {
-            setSeries([{
-              name: incomeDataSeries.name,
-              data: incomeDataSeries.data
-            }]);
-          } else {
-            console.log('Income data not found');
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
+    dispatch(fetchAllData());
+  }, [dispatch]);
 
-    getData();
-  }, []);
+  useEffect(() => {
+    const incomeDataSeries = allData.find(
+      (item) => item.name === "Total Income"
+    );
+
+    if (incomeDataSeries) {
+      setSeries([{ name: incomeDataSeries.name, data: incomeDataSeries.data }]);
+    }
+  }, [allData]);
+
+  // if (isLoading) return <div>Loading...</div>;
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {

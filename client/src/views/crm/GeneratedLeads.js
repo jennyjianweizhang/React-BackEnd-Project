@@ -1,30 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, Typography, Box, Chip } from "@mui/material";
 import ReactApexcharts from "src/@core/components/react-apexcharts";
-import { fetchData } from "src/@core/services/dataService";
+import { fetchData } from "src/@core/services/ecommerceDataService";
 
 const GeneratedLeads = () => {
-    const initialSeries = [23, 27, 22, 28];
-    const categories = ["1st Week", "2nd Week", "3rd Week", "4th Week"];
+  const initialSeries = [23, 27, 22, 28];
+  const categories = ["1st Week", "2nd Week", "3rd Week", "4th Week"];
 
-    const [selectedSegment, setSelectedSegment] = useState({
-        name: 'Average',
-        value: (initialSeries.reduce((a, b) => a + b, 0) / initialSeries.length).toFixed(0) + '%'
-    });
-    const handleChartClick = (event, chartContext, config) => {
+  const [selectedSegment, setSelectedSegment] = useState({
+    name: "Average",
+    value:
+      (initialSeries.reduce((a, b) => a + b, 0) / initialSeries.length).toFixed(
+        0
+      ) + "%",
+  });
+  const handleChartClick = (event, chartContext, config) => {
     const clickedIndex = config.dataPointIndex;
 
     if (clickedIndex >= 0 && clickedIndex < initialSeries.length) {
-            setSelectedSegment({
-            name: categories[clickedIndex],
-            value: initialSeries[clickedIndex]
-            });
-        }
-    };
+      setSelectedSegment({
+        name: categories[clickedIndex],
+        value: initialSeries[clickedIndex],
+      });
+    }
+  };
   const chartOptions = {
     chart: {
       type: "donut",
-      events:{
+      events: {
         dataPointSelection: handleChartClick,
       },
       toolbar: {
@@ -40,33 +43,33 @@ const GeneratedLeads = () => {
     ],
 
     plotOptions: {
-        pie: {
-          donut: {
-          size:'70%',
-            labels: {
+      pie: {
+        donut: {
+          size: "70%",
+          labels: {
+            show: true,
+            total: {
               show: true,
-              total: {
-                show: true,
-                showAlways: true,
-                label: selectedSegment.name,
-                fontSize:'12px',
-                color: 'rgba(50, 71, 92, 0.87)',
-                formatter: function () {
-                  return selectedSegment.value;
-                }
-              }
+              showAlways: true,
+              label: selectedSegment.name,
+              fontSize: "12px",
+              color: "rgba(50, 71, 92, 0.87)",
+              formatter: function () {
+                return selectedSegment.value;
+              },
             },
-          }
-        }
+          },
+        },
       },
+    },
     stroke: {
-        lineCap: 'round'
+      lineCap: "round",
     },
     legend: {
       show: false,
     },
-    dataLabels:{
-        enabled: false
+    dataLabels: {
+      enabled: false,
     },
     responsive: [
       {
@@ -83,49 +86,13 @@ const GeneratedLeads = () => {
     ],
   };
 
-//   const chartSeries = [23, 27, 22, 28];
 
-  // const [series, setSeries] = useState([]);
-
-  // useEffect(() => {
-  //   async function getData() {
-  //     try {
-  //       const fetchedData = await fetchData();
-  //       console.log(fetchedData);
-
-  //       if (fetchedData && Array.isArray(fetchedData) && fetchedData.length > 0) {
-  //         const profitDataSeries = fetchedData.find(item => item.name === 'Profit data');
-  //         if (profitDataSeries) {
-  //           setSeries([{
-  //             name: profitDataSeries.name,
-  //             data: profitDataSeries.data
-  //           }]);
-  //         } else {
-  //           console.log('Profit data not found');
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   }
-
-  //   getData();
-  // }, []);
-
-  // async function getData(){
-  //   try {
-  //     const fetchedData = await fetchData();
-  //     console.log(fetchedData);
-  //   } catch(error){
-  //     console.log(error);
-  //   }
-  // }
 
   return (
     <Card sx={{ width: "330px", height: "202px" }}>
       {/* <button onClick={getData}>getData</button> */}
       <CardContent>
-        <Box display="flex" >
+        <Box display="flex">
           <Box>
             <Typography variant="h6" noWrap>
               Generated Leads
@@ -145,7 +112,9 @@ const GeneratedLeads = () => {
               </Typography>
             </Box>
           </Box>
-          <Box sx={{ minHeight: "150px", marginTop:'30px', marginLeft: '-20px'}}>
+          <Box
+            sx={{ minHeight: "150px", marginTop: "30px", marginLeft: "-20px" }}
+          >
             <ReactApexcharts
               options={chartOptions}
               series={initialSeries}

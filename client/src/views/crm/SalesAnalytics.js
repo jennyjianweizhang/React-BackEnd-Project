@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ReactApexcharts from "src/@core/components/react-apexcharts";
 import {
   Grid,
@@ -10,18 +11,10 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
-import { fetchData } from "src/@core/services/dataService";
+import { fetchAllData } from "src/store/crmData";
+// import { fetchData } from "src/@core/services/ecommerceDataService";
 
 const SalesAnalytics = () => {
-  //   const generateData = (count, { min, max }) => {
-  //     let series = [];
-  //     for (let i = 0; i < count; i++) {
-  //       const x = (i + 1).toString();
-  //       const y = Math.floor(Math.random() * (max - min + 1)) + min;
-  //       series.push({ x, y });
-  //     }
-  //     return series;
-  //   };
 
   const options = {
     chart: {
@@ -158,30 +151,50 @@ const SalesAnalytics = () => {
   };
 
   const [chartSeries, setSeries] = useState([]);
+  const dispatch = useDispatch();
+  const { allData, isLoading } = useSelector((state) => state.crmData);
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const fetchedData = await fetchData();
-        console.log(fetchedData);
-  
-        const filteredData = fetchedData.filter(item => item.id.startsWith('SalesAnalytics'));
-  
-        const chartData = filteredData.map(item => ({
-          name: item.name,
-          data: item.data,
-        }));
-        
-        console.log(chartData);
-        setSeries(chartData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-  
-    getData();
-  }, []);
-  
+    dispatch(fetchAllData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const filteredData = allData.filter(
+      (item) => item.id.startsWith("SalesAnalytics")
+    );
+
+    const chartData = filteredData.map((item) => ({
+      name: item.name,
+      data: item.data,
+    }));
+    setSeries(chartData);
+
+  }, [allData]);
+
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const fetchedData = await fetchData();
+  //       console.log(fetchedData);
+
+  //       const filteredData = fetchedData.filter((item) =>
+  //         item.id.startsWith("SalesAnalytics")
+  //       );
+
+  //       const chartData = filteredData.map((item) => ({
+  //         name: item.name,
+  //         data: item.data,
+  //       }));
+
+  //       console.log(chartData);
+  //       setSeries(chartData);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   getData();
+  // }, []);
 
   return (
     <Grid>
