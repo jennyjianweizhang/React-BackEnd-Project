@@ -1,0 +1,120 @@
+html,
+body {
+  min-height: 100%;
+}
+
+#__next {
+  height: 100%;
+}
+
+code {
+  font-family: "Inter", sans-serif, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue";
+  padding: 0.1rem 0.4rem;
+  font-size: 90%;
+  color: #d400ff;
+  border-radius: 0.1335rem;
+}
+code:not([class*="language-"]):before,
+code:not([class*="language-"]):after {
+  content: "`";
+}
+code[class*="language-"] {
+  padding: 0;
+}
+
+#SvgjsSvg1130 {
+  filter: drop-shadow(0.1px 0.1px 0.1px #71dd37);
+}
+
+.apexcharts-svg .apexcharts-datalabels-group .apexcharts-text {
+  font-size: 16.5px !important;
+}
+.custom-radial-chart-style
+  .apexcharts-radialbar
+  .apexcharts-datalabels-group
+  .apexcharts-text {
+  font-size: 20px !important;
+}
+.custom-sparkline-chart-coversionrate .apexcharts-xaxis {
+  display: none;
+}
+
+.emailComponent .css-9x9ee2-MuiPaper-root-MuiDrawer-paper {
+  top: 6rem;
+  left: 17.8rem;
+}
+
+.css-4vn2z8-MuiDrawer-docked .MuiDrawer-paper {
+  position: relative;
+  z-index: 2000;
+}
+
+.css-zyg32b .react-datepicker {
+  border: none;
+}
+.react-datepicker__month-container .react-datepicker__header {
+  background-color: white;
+  border-bottom: none;
+}
+.react-datepicker__month-container .react-datepicker__current-month {
+  color: rgba(50, 71, 92, 0.87);
+  font-size: 1rem;
+  font-weight: 400;
+}
+.react-datepicker__month-container .react-datepicker__day-name {
+  color: rgba(50, 71, 92, 0.58);
+}
+.react-datepicker__month-container .react-datepicker__day--outside-month {
+  color: #ccc;
+}
+.react-datepicker__month-container .react-datepicker__day--selected {
+  color: rgb(105, 108, 255);
+  border: 1px solid rgb(105, 108, 255);
+  background-color: rgba(50, 71, 92, 0.06);
+  font-weight: normal;
+}
+
+.fc-event.event-business, 
+.fc-event.event-business .fc-event-main { 
+    background-color: rgba(105, 108, 255, 0.16)!important;
+    color: rgb(105, 108, 255) !important;
+    font-weight: 700;
+    border: none;
+}
+.fc-event.event-personal,
+.fc-event.event-personal .fc-event-main{
+  background-color: rgba(255, 62, 29, 0.16)!important;
+  color: rgb(255, 62, 29)!important;
+  font-weight: 700;
+  border: none;
+}
+
+.fc-event.fc-event.event-family,
+.fc-event.fc-event.event-family .fc-event-main {
+  background-color: rgba(255, 171, 0, 0.16)!important;
+  color: rgb(255, 171, 0)!important;
+  font-weight: 700;
+  border: none;
+}
+.fc-event.event-holiday,
+.fc-event.event-holiday .fc-event-main{
+  background-color: rgba(113, 221, 55, 0.16)!important;
+  color: rgb(113, 221, 55)!important;
+  font-weight: 700;
+  border: none;
+}
+.fc-event.event-etc,
+.fc-event.event-etc .fc-event-main{
+  background-color: rgba(22, 177, 255, 0.16)!important;
+  color: rgb(22, 177, 255)!important;
+  font-weight: 700;
+  border: none;
+}
+.fc-daygrid-event-dot{
+  border: none;
+}
+.css-cs2swp-MuiModal-root-MuiPopover-root-MuiMenu-root .MuiMenu-paper{
+  box-S
+}
