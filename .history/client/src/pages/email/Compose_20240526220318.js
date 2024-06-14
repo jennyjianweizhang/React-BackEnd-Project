@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Dialog,
@@ -17,9 +17,9 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 // import ReactQuill from "react-quill";
-import { ReactQuill } from "../index.js";
+import {ReactQuill} from "../index.js";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteIcon from '@mui/icons-material/Delete';
 import "react-quill/dist/quill.snow.css";
 
 const ComposeWindow = ({ isOpen, onClose }) => {
@@ -56,10 +56,13 @@ const ComposeWindow = ({ isOpen, onClose }) => {
 
   const handleDelete = () => {
     console.log("Email discarded");
-    onClose();
+    onClose(); 
   };
 
-  const emailList = useSelector((state) => state.emailData.allData);
+  const emailList = useSelector((state) =>
+  state.emailData.allData)
+
+  
 
   return (
     <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="md">
@@ -79,22 +82,14 @@ const ComposeWindow = ({ isOpen, onClose }) => {
           spacing={2}
           style={{ height: "350px", marginBottom: "20px" }}
         >
-          <Autocomplete
+           <Autocomplete
             freeSolo
             id="email-to"
             options={emailList}
-            getOptionLabel={(option) => `${option.name} <${option.email}>`}
+            getOptionLabel={(option) => `${option.name} <${option.email}>`} 
             renderOption={(props, option) => (
-              <Box
-                component="li"
-                {...props}
-                key={option.id}
-                sx={{ display: "flex", alignItems: "center" }}
-              >
-                <Avatar
-                  src={option.avatar}
-                  sx={{ marginRight: 2, width: 24, height: 24 }}
-                />
+              <Box component="li" {...props} key={option.id} sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar src={option.avatar} sx={{ marginRight: 2, width: 24, height: 24 }} />
                 {`${option.name} <${option.email}>`}
               </Box>
             )}
@@ -165,44 +160,35 @@ const ComposeWindow = ({ isOpen, onClose }) => {
           />
         </Stack>
       </DialogContent>
-      <Stack
-        direction="row"
-        justifyContent="flex-end"
-        spacing={2}
-        sx={{ margin: 2, "& > :not(style) + :not(style)": { ml: -1.5 } }}
-      >
-        <Button
-          startIcon={<DeleteIcon />}
-          onClick={handleDelete}
+      <Stack direction="row" justifyContent="flex-end" spacing={2} sx={{ margin: 2, '& > :not(style) + :not(style)': { ml: -1.5 } }}>
+      <Button 
+          startIcon={<DeleteIcon />} 
+          onClick={handleDelete} 
           sx={{ ml: 0 }}
-        ></Button>
+        >
+        </Button>
         <Box>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSendEmail}
-            sx={{ marginRight: "-10px" }}
-          >
-            Send
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleClick}
-            sx={{ marginRight: "4px" }}
-          >
-            <ArrowDropDownIcon />
-          </Button>
-          <Menu
-            id="send-options-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleSaveAsDraft}>Save as Draft</MenuItem>
-            <MenuItem onClick={handleScheduleSend}>Schedule Send</MenuItem>
-          </Menu>
+        <Button variant="contained" color="primary" onClick={handleSendEmail} sx={{marginRight:'-10px'}}>
+          Send
+        </Button>
+        <Button 
+          variant="contained" color="primary" 
+          onClick={handleClick}
+          sx={{marginRight:'4px'}}
+        >
+          <ArrowDropDownIcon/>
+        </Button>
+        <Menu
+          id="send-options-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleSaveAsDraft}>Save as Draft</MenuItem>
+          <MenuItem onClick={handleScheduleSend}>Schedule Send</MenuItem>
+        </Menu>
         </Box>
+        
       </Stack>
     </Dialog>
   );

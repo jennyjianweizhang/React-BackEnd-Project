@@ -8,7 +8,7 @@ import { loginApi } from "src/api/user";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import dynamic from "next/dist/shared/lib/dynamic";
-export const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+export 
 
 // ** MUI Components
 import Box from "@mui/material/Box";

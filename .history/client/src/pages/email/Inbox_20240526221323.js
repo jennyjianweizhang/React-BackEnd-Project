@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  List,
-  ListItem,
+  Checkbox,
   IconButton,
+  Avatar,
   Typography,
   Box,
-  Checkbox,
-  Avatar,
+  List,
+  ListItem,
+  ListItemIcon,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MarkunreadIcon from "@mui/icons-material/Markunread";
@@ -24,14 +25,20 @@ import {
 import EmailDetail from "./EmailDetail";
 import { selectSearchTerm } from "./Search";
 
-const Sent = ({
+const Inbox = ({
   setIsShowingSearchBox,
   selectedEmailIds,
   onEmailSelectionChange,
   emails,
 }) => {
   const [hoveredEmailId, setHoveredEmailId] = useState(null);
-
+  const dispatch = useDispatch();
+  const searchTerm = useSelector(selectSearchTerm);
+  const filteredEmails = emails.filter(
+    (email) =>
+      email.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      email.content.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   const toggleStar = (event, emailId) => {
     event.stopPropagation();
     dispatch(moveToStarred(emailId));
@@ -49,18 +56,6 @@ const Sent = ({
     cursor: "pointer",
   };
 
-  // const sentEmails = useSelector((state) =>
-  //   state.emailData.allData.filter((email) => email.status.includes("sent"))
-  // );
-
-  const dispatch = useDispatch();
-  const searchTerm = useSelector(selectSearchTerm);
-  const filteredEmails = emails.filter(
-    (email) =>
-      email.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      email.content.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   const handleDelete = (emailId) => {
     dispatch(moveToTrash(emailId));
   };
@@ -75,6 +70,7 @@ const Sent = ({
   };
 
   const [selectedEmailId, setSelectedEmailId] = useState(null);
+
   const handleEmailClick = (emailId) => {
     setSelectedEmailId(emailId);
     setIsShowingSearchBox(false);
@@ -111,7 +107,7 @@ const Sent = ({
         {selectedEmailId == null ? (
           filteredEmails.length > 0 ? (
             <List>
-              {emails.map((email) => (
+              {filteredEmails.map((email) => (
                 <ListItem
                   key={email.id}
                   className="email-item"
@@ -173,7 +169,6 @@ const Sent = ({
                             <DeleteIcon />
                           </IconButton>
                           <IconButton
-                            aria-label="Toggle Read Status"
                             onClick={(event) =>
                               handleToggleReadStatus(event, email.id)
                             }
@@ -232,4 +227,4 @@ const Sent = ({
   );
 };
 
-export default Sent;
+export default Inbox;

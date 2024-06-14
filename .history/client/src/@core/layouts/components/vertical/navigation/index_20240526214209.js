@@ -82,7 +82,7 @@ const Navigation = props => {
   // const ScrollWrapper = hidden ? Box : PerfectScrollbar
 
   return (
-    <Drawer {...props} sx={{ overflow: 'hidden' }}>
+    <Drawer {...props} sx={{ overflow: 'scroll' }}>
       <VerticalNavHeader {...props} />
       <StyledBoxForShadow
         ref={shadowRef}
@@ -93,7 +93,7 @@ const Navigation = props => {
           )} 95%,${hexToRGBA(theme.palette.background.default, 0.05)})`
         }}
       />
-      <Box sx={{ height: 'calc(100vh - 64px)', overflow: 'auto' }}>
+      <Box sx={{ height: '100%', position: 'relative', overflowY: 'scroll' }}>
         <PerfectScrollbar
           // {...(hidden
           //   ? {
@@ -109,7 +109,7 @@ const Navigation = props => {
           options={{ wheelPropagation: false }}
         >
           {beforeVerticalNavMenuContent ? beforeVerticalNavMenuContent(props) : null}
-          <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%'}}>
+          <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflowY: 'auto'  }}>
             {userVerticalNavMenuContent ? (
               userVerticalNavMenuContent(props)
             ) : (

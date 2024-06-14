@@ -152,7 +152,7 @@ const Sent = ({
                             <StarBorderIcon />
                           )}
                         </IconButton>
-                      
+                      </IconButton>
                       <Avatar src={email.avatar} alt={email.name} />
                       <Box flexGrow={1}>
                         <Typography>{email.name}</Typography>

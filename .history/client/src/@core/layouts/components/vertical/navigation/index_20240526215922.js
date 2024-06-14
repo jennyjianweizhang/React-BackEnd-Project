@@ -93,7 +93,7 @@ const Navigation = props => {
           )} 95%,${hexToRGBA(theme.palette.background.default, 0.05)})`
         }}
       />
-      <Box sx={{ height: 'calc(100vh - 64px)', overflow: 'auto' }}>
+      <Box sx={{ height: 'calc(100vh - height_of_your_header)', overflow: 'auto' }}>
         <PerfectScrollbar
           // {...(hidden
           //   ? {
