@@ -72,13 +72,10 @@ const ChatRoom = () => {
   //   chat.name.toLowerCase().includes(searchTerm.toLowerCase())
   // );
 
-  const filteredChats = allData.filter((chat) =>
-  chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
   const [currentChatId, setCurrentChatId] = useState(11);
   const currentChatData = allData.find(
     (chat) => chat.id.toString() === currentChatId.toString()
-  ) || { avatar: '', name: '', title: '', about: '', email: '', phone: '', schedule: '', messages: [] };
+  );
   console.log(allData);
 
   const [message, setMessage] = useState("");
@@ -312,7 +309,7 @@ const ChatRoom = () => {
           />
         </Box>
         <Divider />
-        <List subheader={<ListSubheader>Chats</ListSubheader>}>
+        {/* <List subheader={<ListSubheader>Chats</ListSubheader>}>
           {filteredChats.length > 0 ? (
             <List>
               {filteredChats
@@ -385,7 +382,7 @@ const ChatRoom = () => {
           ) : (
             <Typography sx={{ mx: 4, my: 2 }}>No Contacts Found</Typography>
           )}
-        </List>
+        </List> */}
       </Drawer>
 
       {/* Main content area */}
@@ -642,7 +639,6 @@ const ChatRoom = () => {
               />
             }
           >
-            
             <Avatar src={currentChatData.avatar} sx={{ mr: 0 }} />
           </Badge>
 

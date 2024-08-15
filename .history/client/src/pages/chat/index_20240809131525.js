@@ -78,7 +78,7 @@ const ChatRoom = () => {
   const [currentChatId, setCurrentChatId] = useState(11);
   const currentChatData = allData.find(
     (chat) => chat.id.toString() === currentChatId.toString()
-  ) || { avatar: '', name: '', title: '', about: '', email: '', phone: '', schedule: '', messages: [] };
+  );
   console.log(allData);
 
   const [message, setMessage] = useState("");
@@ -616,7 +616,7 @@ const ChatRoom = () => {
           </Box>
         </Drawer>
         {/* Chat Header */}
-        <Box
+        {/* <Box
           sx={{
             p: 2,
             display: "flex",
@@ -642,7 +642,6 @@ const ChatRoom = () => {
               />
             }
           >
-            
             <Avatar src={currentChatData.avatar} sx={{ mr: 0 }} />
           </Badge>
 
@@ -724,7 +723,7 @@ const ChatRoom = () => {
                   </Typography>
                   <List dense>
                     {/* Email */}
-                    <ListItem>
+                    {/* <ListItem>
                       <ListItemIcon>
                         <svg
                           width="24"
@@ -736,7 +735,7 @@ const ChatRoom = () => {
                         </svg>
                       </ListItemIcon>
                       <ListItemText primary={currentChatData.email} />
-                    </ListItem>
+                    </ListItem> */}
 
                     {/* Phone */}
                     <ListItem>
@@ -904,7 +903,7 @@ const ChatRoom = () => {
             <MenuItem onClick={handleClose}>Clear Chat</MenuItem>
             <MenuItem onClick={handleClose}>Report</MenuItem>
           </Menu>
-        </Box>
+        </Box> */}
         <Divider />
 
         {/* Chat Messages */}

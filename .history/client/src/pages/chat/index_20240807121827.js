@@ -68,17 +68,14 @@ const ChatRoom = () => {
   const selectSearchTerm = (state) => state.chatData.searchTerm;
   const searchTerm = useSelector(selectSearchTerm);
 
-  // const filteredChats = allData.filter((chat) =>
-  //   chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
   const filteredChats = allData.filter((chat) =>
-  chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
+    chat.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const [currentChatId, setCurrentChatId] = useState(11);
   const currentChatData = allData.find(
     (chat) => chat.id.toString() === currentChatId.toString()
-  ) || { avatar: '', name: '', title: '', about: '', email: '', phone: '', schedule: '', messages: [] };
+  );
   console.log(allData);
 
   const [message, setMessage] = useState("");
@@ -390,7 +387,7 @@ const ChatRoom = () => {
 
       {/* Main content area */}
 
-      <Box
+      {/* <Box
         sx={{
           width: { xs: "50%", sm: "40%", md: "calc(100% - 380px)" },
           flexGrow: 1,
@@ -624,7 +621,7 @@ const ChatRoom = () => {
             backgroundColor: "#f5f5f5",
           }}
         >
-          <Badge
+          {/* <Badge
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             onClick={handleAvatarClick}
@@ -642,9 +639,8 @@ const ChatRoom = () => {
               />
             }
           >
-            
             <Avatar src={currentChatData.avatar} sx={{ mr: 0 }} />
-          </Badge>
+          </Badge> */}
 
           <Drawer
             anchor="right"
@@ -998,7 +994,7 @@ const ChatRoom = () => {
             Send
           </Button>
         </Paper>
-      </Box>
+      </Box> */}
       {/* <button onClick={addData}>addData</button> */}
     </Box>
   );

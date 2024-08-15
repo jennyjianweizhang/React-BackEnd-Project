@@ -78,7 +78,7 @@ const ChatRoom = () => {
   const [currentChatId, setCurrentChatId] = useState(11);
   const currentChatData = allData.find(
     (chat) => chat.id.toString() === currentChatId.toString()
-  ) || { avatar: '', name: '', title: '', about: '', email: '', phone: '', schedule: '', messages: [] };
+  );
   console.log(allData);
 
   const [message, setMessage] = useState("");

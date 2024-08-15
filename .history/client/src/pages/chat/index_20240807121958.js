@@ -68,17 +68,14 @@ const ChatRoom = () => {
   const selectSearchTerm = (state) => state.chatData.searchTerm;
   const searchTerm = useSelector(selectSearchTerm);
 
-  // const filteredChats = allData.filter((chat) =>
-  //   chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
   const filteredChats = allData.filter((chat) =>
-  chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
+    chat.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const [currentChatId, setCurrentChatId] = useState(11);
   const currentChatData = allData.find(
     (chat) => chat.id.toString() === currentChatId.toString()
-  ) || { avatar: '', name: '', title: '', about: '', email: '', phone: '', schedule: '', messages: [] };
+  );
   console.log(allData);
 
   const [message, setMessage] = useState("");
@@ -624,7 +621,7 @@ const ChatRoom = () => {
             backgroundColor: "#f5f5f5",
           }}
         >
-          <Badge
+          {/* <Badge
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             onClick={handleAvatarClick}
@@ -642,11 +639,10 @@ const ChatRoom = () => {
               />
             }
           >
-            
             <Avatar src={currentChatData.avatar} sx={{ mr: 0 }} />
-          </Badge>
+          </Badge> */}
 
-          <Drawer
+          {/* <Drawer
             anchor="right"
             open={profileDrawerOpen}
             onClose={handleProfileDrawerClose}
@@ -852,7 +848,7 @@ const ChatRoom = () => {
                 </Box>
               </List>
             </Box>
-          </Drawer>
+          </Drawer> */}
 
           <Box sx={{ flexGrow: 1, ml: 5 }}>
             <Typography
@@ -908,7 +904,7 @@ const ChatRoom = () => {
         <Divider />
 
         {/* Chat Messages */}
-        <List sx={{ flexGrow: 1, overflowY: "auto" }}>
+        {/* <List sx={{ flexGrow: 1, overflowY: "auto" }}>
           {currentChatData && currentChatData.messages.length > 0 ? (
             currentChatData.messages.map((msg, index) => (
               <ListItem
@@ -960,7 +956,7 @@ const ChatRoom = () => {
               />
             </ListItem>
           )}
-        </List>
+        </List> */}
 
         {/* Type Message */}
         <Paper

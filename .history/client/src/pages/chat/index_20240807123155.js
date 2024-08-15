@@ -71,14 +71,12 @@ const ChatRoom = () => {
   // const filteredChats = allData.filter((chat) =>
   //   chat.name.toLowerCase().includes(searchTerm.toLowerCase())
   // );
+  
 
-  const filteredChats = allData.filter((chat) =>
-  chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
   const [currentChatId, setCurrentChatId] = useState(11);
   const currentChatData = allData.find(
     (chat) => chat.id.toString() === currentChatId.toString()
-  ) || { avatar: '', name: '', title: '', about: '', email: '', phone: '', schedule: '', messages: [] };
+  );
   console.log(allData);
 
   const [message, setMessage] = useState("");
@@ -642,7 +640,6 @@ const ChatRoom = () => {
               />
             }
           >
-            
             <Avatar src={currentChatData.avatar} sx={{ mr: 0 }} />
           </Badge>
 

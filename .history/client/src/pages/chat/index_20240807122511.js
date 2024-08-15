@@ -72,13 +72,10 @@ const ChatRoom = () => {
   //   chat.name.toLowerCase().includes(searchTerm.toLowerCase())
   // );
 
-  const filteredChats = allData.filter((chat) =>
-  chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
   const [currentChatId, setCurrentChatId] = useState(11);
   const currentChatData = allData.find(
     (chat) => chat.id.toString() === currentChatId.toString()
-  ) || { avatar: '', name: '', title: '', about: '', email: '', phone: '', schedule: '', messages: [] };
+  );
   console.log(allData);
 
   const [message, setMessage] = useState("");
@@ -312,7 +309,7 @@ const ChatRoom = () => {
           />
         </Box>
         <Divider />
-        <List subheader={<ListSubheader>Chats</ListSubheader>}>
+        {/* <List subheader={<ListSubheader>Chats</ListSubheader>}>
           {filteredChats.length > 0 ? (
             <List>
               {filteredChats
@@ -358,7 +355,7 @@ const ChatRoom = () => {
           ) : (
             <Typography sx={{ mx: 4, my: 2 }}>No Chats Found</Typography>
           )}
-        </List>
+        </List> */}
 
         <Divider />
         <List subheader={<ListSubheader>Contacts</ListSubheader>}>
@@ -624,7 +621,7 @@ const ChatRoom = () => {
             backgroundColor: "#f5f5f5",
           }}
         >
-          <Badge
+          {/* <Badge
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             onClick={handleAvatarClick}
@@ -642,9 +639,8 @@ const ChatRoom = () => {
               />
             }
           >
-            
             <Avatar src={currentChatData.avatar} sx={{ mr: 0 }} />
-          </Badge>
+          </Badge> */}
 
           <Drawer
             anchor="right"
@@ -699,22 +695,22 @@ const ChatRoom = () => {
                         />
                       }
                     >
-                      <Avatar
+                      {/* <Avatar
                         alt="John Doe"
                         src={currentChatData.avatar}
                         sx={{ width: "5rem", height: "5rem" }}
-                      />
+                      /> */}
                     </Badge>
                   </ListItemAvatar>
                 </ListItem>
-                <ListItemText
+                {/* <ListItemText
                   primary={currentChatData.name}
                   secondary={currentChatData.title}
                   sx={{ textAlign: "center" }}
-                />
-                <ListItem>
+                /> */}
+                {/* <ListItem>
                   <ListItemText primary={currentChatData.about} />
-                </ListItem>
+                </ListItem> */}
                 <Box sx={{ p: 2 }}>
                   <Typography
                     variant="body1"
@@ -735,7 +731,7 @@ const ChatRoom = () => {
                           <path d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2v.511l-8 6.223l-8-6.222V6h16zM4 18V9.044l7.386 5.745a.994.994 0 0 0 1.228 0L20 9.044L20.002 18H4z" />
                         </svg>
                       </ListItemIcon>
-                      <ListItemText primary={currentChatData.email} />
+                      {/* <ListItemText primary={currentChatData.email} /> */}
                     </ListItem>
 
                     {/* Phone */}
@@ -750,7 +746,7 @@ const ChatRoom = () => {
                           <path d="M17.707 12.293a.999.999 0 0 0-1.414 0l-1.594 1.594c-.739-.22-2.118-.72-2.992-1.594s-1.374-2.253-1.594-2.992l1.594-1.594a.999.999 0 0 0 0-1.414l-4-4a.999.999 0 0 0-1.414 0L3.581 5.005c-.38.38-.594.902-.586 1.435c.023 1.424.4 6.37 4.298 10.268s8.844 4.274 10.269 4.298h.028c.528 0 1.027-.208 1.405-.586l2.712-2.712a.999.999 0 0 0 0-1.414l-4-4.001zm-.127 6.712c-1.248-.021-5.518-.356-8.873-3.712c-3.366-3.366-3.692-7.651-3.712-8.874L7 4.414L9.586 7L8.293 8.293a1 1 0 0 0-.272.912c.024.115.611 2.842 2.271 4.502s4.387 2.247 4.502 2.271a.991.991 0 0 0 .912-.271L17 14.414L19.586 17l-2.006 2.005z" />
                         </svg>
                       </ListItemIcon>
-                      <ListItemText primary={currentChatData.phone} />
+                      {/* <ListItemText primary={currentChatData.phone} /> */}
                     </ListItem>
 
                     {/* Schedule */}
@@ -766,7 +762,7 @@ const ChatRoom = () => {
                           <path d="M13 7h-2v5.414l3.293 3.293l1.414-1.414L13 11.586z" />
                         </svg>
                       </ListItemIcon>
-                      <ListItemText primary={currentChatData.schedule} />
+                      {/* <ListItemText primary={currentChatData.schedule} /> */}
                     </ListItem>
                   </List>
                   <Typography
@@ -854,7 +850,7 @@ const ChatRoom = () => {
             </Box>
           </Drawer>
 
-          <Box sx={{ flexGrow: 1, ml: 5 }}>
+          {/* <Box sx={{ flexGrow: 1, ml: 5 }}>
             <Typography
               sx={{
                 color: "rgba(50, 71, 92, 0.87)",
@@ -886,7 +882,7 @@ const ChatRoom = () => {
             <SearchIcon />
           </IconButton>
           </>
-          )}
+          )} */}
           
           <IconButton aria-label="more options" onClick={handleClick}>
             <MoreVertIcon />
@@ -908,7 +904,7 @@ const ChatRoom = () => {
         <Divider />
 
         {/* Chat Messages */}
-        <List sx={{ flexGrow: 1, overflowY: "auto" }}>
+        {/* <List sx={{ flexGrow: 1, overflowY: "auto" }}>
           {currentChatData && currentChatData.messages.length > 0 ? (
             currentChatData.messages.map((msg, index) => (
               <ListItem
@@ -960,7 +956,7 @@ const ChatRoom = () => {
               />
             </ListItem>
           )}
-        </List>
+        </List> */}
 
         {/* Type Message */}
         <Paper

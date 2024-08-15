@@ -68,17 +68,14 @@ const ChatRoom = () => {
   const selectSearchTerm = (state) => state.chatData.searchTerm;
   const searchTerm = useSelector(selectSearchTerm);
 
-  // const filteredChats = allData.filter((chat) =>
-  //   chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
   const filteredChats = allData.filter((chat) =>
-  chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
+    chat.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const [currentChatId, setCurrentChatId] = useState(11);
   const currentChatData = allData.find(
     (chat) => chat.id.toString() === currentChatId.toString()
-  ) || { avatar: '', name: '', title: '', about: '', email: '', phone: '', schedule: '', messages: [] };
+  );
   console.log(allData);
 
   const [message, setMessage] = useState("");
@@ -624,7 +621,7 @@ const ChatRoom = () => {
             backgroundColor: "#f5f5f5",
           }}
         >
-          <Badge
+          {/* <Badge
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             onClick={handleAvatarClick}
@@ -642,9 +639,8 @@ const ChatRoom = () => {
               />
             }
           >
-            
             <Avatar src={currentChatData.avatar} sx={{ mr: 0 }} />
-          </Badge>
+          </Badge> */}
 
           <Drawer
             anchor="right"
@@ -699,22 +695,22 @@ const ChatRoom = () => {
                         />
                       }
                     >
-                      <Avatar
+                      {/* <Avatar
                         alt="John Doe"
                         src={currentChatData.avatar}
                         sx={{ width: "5rem", height: "5rem" }}
-                      />
+                      /> */}
                     </Badge>
                   </ListItemAvatar>
                 </ListItem>
-                <ListItemText
+                {/* <ListItemText
                   primary={currentChatData.name}
                   secondary={currentChatData.title}
                   sx={{ textAlign: "center" }}
-                />
-                <ListItem>
+                /> */}
+                {/* <ListItem>
                   <ListItemText primary={currentChatData.about} />
-                </ListItem>
+                </ListItem> */}
                 <Box sx={{ p: 2 }}>
                   <Typography
                     variant="body1"
